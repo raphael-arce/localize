@@ -4,3 +4,5 @@ backend/bin
 #node modules
 backend/node_modules
 
+#idea
+backend/.idea
