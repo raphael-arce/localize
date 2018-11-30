@@ -1,0 +1,6 @@
+#bin
+backend/bin
+
+#node modules
+backend/node_modules
+
