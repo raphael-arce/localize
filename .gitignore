@@ -2,5 +2,8 @@
 backend/bin
 
 #node modules
-backend/node_modules
+backend/todoListApi/node_modules
 
+
+#idea
+backend/.idea
