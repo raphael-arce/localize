@@ -3,6 +3,7 @@ backend/bin
 
 #node modules
 backend/todoListApi/node_modules
+backend/Retailers_API/node_modules
 
 #idea
 backend/.idea
