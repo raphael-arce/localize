@@ -2,7 +2,7 @@
 
 
 var mongoose = require('mongoose'),
-    Product = mongoose.model('Products'),
+    Product = mongoose.model('Product'),
     Shop = mongoose.model('Shop');
 
 /**
@@ -12,26 +12,28 @@ var mongoose = require('mongoose'),
  */
 exports.findByKeywords = function(req, res) {
     //begin with finding the shopInfo
-    Shop.find({},function(shopErr, shopInfo){
-        console.log(shopInfo);
-
-        if(!shopInfo) {
-            res.send("error");
-        }
+    Shop.find({},function(shopErr, shopInfos){
 
         if(shopErr) //if there is an error, forward it to the requester
             res.send(shopErr);
 
+        if(!shopInfos) {
+            res.send("no shop info");
+        }
+
+        let shopInfo = shopInfos[0];
+
         //if there are keywords to look for, use them
         if(req.query.keywords) {
 
-            let array = JSON.parse(req.query.keywords)
+            let array = JSON.parse(req.query.keywords);
+
             //look for products that match the keywords & forward them to the requester
             Product.find({keywords : {$in: array}}, function(productErr, product) {
                 if (productErr)
                     res.send(productErr);
-                shopInfo.inventory = product;
-                console.log(shopInfo);
+
+                shopInfo._doc.inventory = product;
                 res.json(shopInfo);
             });
         }
@@ -40,7 +42,10 @@ exports.findByKeywords = function(req, res) {
             Product.find({}, function(err, product) {
                 if (err)
                     res.send(err);
-                shopInfo.inventory = product;
+
+
+
+                shopInfo._doc.inventory = product;
                 res.json(shopInfo);
             });
         }
@@ -54,15 +59,21 @@ exports.findByKeywords = function(req, res) {
  */
 exports.findById = function(req, res) {
     //begin with finding the shopInfo....
-    Shop.find({},function(shopErr, shopInfo) {
+    Shop.find({},function(shopErr, shopInfos) {
         if (shopErr) //if there is an error, forward it to the requester
             res.send(shopErr)
+
+        if (!shopInfos) {
+            res.send("no shop info")
+        }
+
+        let shopInfo = shopInfos[0];
 
         //use the product id to find a product & forward it to the requester
         Product.find({productId : req.params.productId}, function(err, product) {
             if (err)
                 res.send(err);
-            shopInfo.inventory = product
+            shopInfo._doc.inventory = product;
             res.json(shopInfo);
         });
     });

@@ -11,5 +11,5 @@ var ProductSchema = new Schema({
     quantity: Number
 });
 
-module.exports = mongoose.model('Products', ProductSchema);
+module.exports = mongoose.model('Product', ProductSchema);
 
