@@ -7,7 +7,7 @@ Download [here](https://docs.mongodb.com/manual/installation/) & Run with
 
 ### Populate the MongoDB (create mock data)
 
-````npm run pop````
+```npm run pop```
 
 ### Run the NodeJS
 
