@@ -3,13 +3,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var ProductSchema = new Schema({
-    productName: String,
-    productId: Number,
-    price: String,
-    keywords: [String],
-    quantity: Number
+var ShopSchema = new Schema({
+    shopName: String,
+    shopAddress: String,
+    phone: String,
+    email: String,
+    API: String
 });
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('Shop', ShopSchema);
 

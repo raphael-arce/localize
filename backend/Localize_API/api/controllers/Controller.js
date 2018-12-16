@@ -2,17 +2,21 @@
 
 
 var mongoose = require('mongoose'),
-    Product = mongoose.model('Product'),
-    Shop = mongoose.model('Shop');
+    Shop = mongoose.model('Shop'),
+    Promise = require('promise');
+const request = require('request');
+
 
 /**
  * function to look for products using keywords (or not)
- * @param req
- * @param res
+ * @param request
+ * @param response
  */
-exports.findByKeywords = function(req, res) {
+exports.find = function(req, res) {
     //begin with finding the shopInfo
     Shop.find({},function(shopErr, shopInfos){
+
+        let results = [];
 
         if(shopErr) //if there is an error, forward it to the requester
             res.send(shopErr);
@@ -21,61 +25,64 @@ exports.findByKeywords = function(req, res) {
             res.send("no shop info");
         }
 
-        let shopInfo = shopInfos[0];
-
         //if there are keywords to look for, use them
-        if(req.query.keywords) {
+        //if(req.query.keywords) {
 
-            let array = JSON.parse(req.query.keywords);
+            //let array = JSON.parse(req.query.keywords);
+            let promises = [];
+            for(let i = 0; i < shopInfos.length; i++) {
 
-            //look for products that match the keywords & forward them to the requester
-            Product.find({keywords : {$in: array}}, function(productErr, product) {
-                if (productErr)
-                    res.send(productErr);
+                let shopInfo = shopInfos[i]._doc;
+                let url = shopInfo.API + "/products?keywords=" + req.query.keywords;
+                //console.log(url);
 
-                shopInfo._doc.inventory = product;
-                res.json(shopInfo);
-            });
-        }
-        //if there are no keywords, get all products & forward them to the requester
-        else {
-            Product.find({}, function(err, product) {
-                if (err)
-                    res.send(err);
+                let p = new Promise((resolve,reject) => {
+                    console.log("hi!");
+                    console.log(url);
 
+                    request.get(url, (err, apiResponse, body) => {
+                        if(err)
+                            reject(err.message);
 
+                        if(body)
+                        shopInfo.inventory = JSON.parse(body);
+                        results.push(shopInfo);
+                        resolve();
+                    });
+/*
+                        let data = '';
 
-                shopInfo._doc.inventory = product;
-                res.json(shopInfo);
-            });
-        }
-  })
-};
+                        // A chunk of data has been recieved.
+                        resp.on('data', (chunk) => {
+                            data += chunk;
+                        });
 
-/**
- * function to look for products using IDs
- * @param req
- * @param res
- */
-exports.findById = function(req, res) {
-    //begin with finding the shopInfo....
-    Shop.find({},function(shopErr, shopInfos) {
-        if (shopErr) //if there is an error, forward it to the requester
-            res.send(shopErr)
+                        // The whole response has been received. Print out the result.
+                        resp.on('end', () => {
+                            if(data) {
+                                shopInfo.inventory = data;
+                                results.push(shopInfo)
+                            }
+                            console.log(JSON.parse(data).explanation);
+                            resolve();
+                        });
 
-        if (!shopInfos) {
-            res.send("no shop info")
-        }
+                    }).on("error", (err) => {
+                        reject("Error: " + err.message);
+                        //res.send("Error: " + err.message);
+                    })*/
 
-        let shopInfo = shopInfos[0];
+                });
+                promises.push(p);
+            }
 
-        //use the product id to find a product & forward it to the requester
-        Product.find({productId : req.params.productId}, function(err, product) {
-            if (err)
-                res.send(err);
-            shopInfo._doc.inventory = product;
-            res.json(shopInfo);
-        });
-    });
+            Promise.all(promises).then((values) => {
+                console.log(values);
+                res.json(results);
+            }).catch(function(err) {
+            res.send(err);
+            })
+        //}
 
+    })
 };
