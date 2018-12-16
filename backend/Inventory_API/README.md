@@ -33,5 +33,7 @@ Query a product by id: http://localhost:3000/products/{productId}
 Examples: 
 
 http://localhost:3000/products/4032045531245
+
 http://localhost:3000/products?keywords=["Nack","Oliv"]
+
 http://localhost:3000/products?keywords=["adidas"]
