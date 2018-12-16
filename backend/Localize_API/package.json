@@ -1,0 +1,22 @@
+{
+  "name": "localize_api",
+  "version": "1.0.0",
+  "description": "RESTful Localize API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.tubit.tu-berlin.de/raphael.arce/localize.git"
+  },
+  "keywords": [
+    "description:",
+    "RESTful",
+    "Localize",
+    "API"
+  ],
+  "author": "Raphael Arce & Cristofer Soler",
+  "license": "ISC"
+}
