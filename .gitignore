@@ -4,5 +4,8 @@ backend/bin
 #node modules
 backend/Inventory_API/node_modules
 
+#private testing
+backend/Inventory_API/test.js
+
 #idea
 backend/.idea
