@@ -44,7 +44,6 @@ exports.findById = function(req, res) {
     Product.find({productId : req.params.productId}, function(err, product) {
         if (err)
             res.send(err);
-        shopInfo._doc.inventory = product;
-        res.json(shopInfo);
+        res.json(product);
     });
 };

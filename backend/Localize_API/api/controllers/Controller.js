@@ -17,7 +17,8 @@ exports.find = function(req, res) {
     Shop.find({},function(shopErr, shopInfos){
 
         let results = [];
-
+        let promises = [];
+        console.log(shopInfos);
         if(shopErr) //if there is an error, forward it to the requester
             res.send(shopErr);
 
@@ -26,10 +27,9 @@ exports.find = function(req, res) {
         }
 
         //if there are keywords to look for, use them
-        //if(req.query.keywords) {
+        if(req.query.keywords) {
 
-            //let array = JSON.parse(req.query.keywords);
-            let promises = [];
+
             for(let i = 0; i < shopInfos.length; i++) {
 
                 let shopInfo = shopInfos[i]._doc;
@@ -45,32 +45,10 @@ exports.find = function(req, res) {
                             reject(err.message);
 
                         if(body)
-                        shopInfo.inventory = JSON.parse(body);
+                            shopInfo.inventory = JSON.parse(body);
                         results.push(shopInfo);
                         resolve();
                     });
-/*
-                        let data = '';
-
-                        // A chunk of data has been recieved.
-                        resp.on('data', (chunk) => {
-                            data += chunk;
-                        });
-
-                        // The whole response has been received. Print out the result.
-                        resp.on('end', () => {
-                            if(data) {
-                                shopInfo.inventory = data;
-                                results.push(shopInfo)
-                            }
-                            console.log(JSON.parse(data).explanation);
-                            resolve();
-                        });
-
-                    }).on("error", (err) => {
-                        reject("Error: " + err.message);
-                        //res.send("Error: " + err.message);
-                    })*/
 
                 });
                 promises.push(p);
@@ -80,9 +58,42 @@ exports.find = function(req, res) {
                 console.log(values);
                 res.json(results);
             }).catch(function(err) {
-            res.send(err);
+                res.send(err);
             })
-        //}
+        }
+
+        if(req.query.id) {
+
+            for(let i = 0; i < shopInfos.length; i++) {
+
+                let shopInfo = shopInfos[i]._doc;
+                let url = shopInfo.API + "/products/" + req.query.id;
+                //console.log(url);
+
+                let p = new Promise((resolve,reject) => {
+                    //console.log("hi!");
+                    console.log(url);
+
+                    request.get(url, (err, apiResponse, body) => {
+                        if(err)
+                            reject(err.message);
+
+                        if(body)
+                            shopInfo.inventory = JSON.parse(body);
+                        results.push(shopInfo);
+                        resolve();
+                    });
+
+                });
+                promises.push(p);
+            }
+
+            Promise.all(promises).then(() => {
+                res.json(results);
+            }).catch(function(err) {
+                res.send(err);
+            })
+        }
 
     })
 };

@@ -1,18 +1,10 @@
 var mongoose = require('mongoose'),
-    product = require('./api/models/Product'), //created model loading here;
-    shop = require('./api/models/Shop');
+    product = require('./api/models/Product'); //created model loading here;
+    //shop = require('./api/models/Shop');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/inventory');
 
-
-var shopInfo = {
-    shopName: "123 hier gibts alles",
-    shopAddress: "Rigaer Str. 67, 10247 Berlin",
-    phone: "+49 030 123456789",
-    email: "info@123.de",
-    API: "http://localhost:3000"
-}
 
 var products =  [{
     productName: 'Schal',
@@ -48,20 +40,12 @@ var products =  [{
 
 console.log('trying to create shop info...')
 
-shop.create(shopInfo, function(err){
-    if(err)
-        console.log(err);
-    else
-        console.log("shop info created successfully!")
-
-    console.log('trying to create product info...')
-    product.insertMany(products, function(err) {
+product.insertMany(products, function(err) {
         if(err)
             console.log(err);
         else
             console.log("product info created successfully!")
-        process.exit();
-    })
+    process.exit();
 });
 
 

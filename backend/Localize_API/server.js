@@ -2,14 +2,14 @@ var express = require('express'),
   app = express(),
   port = process.env.PORT || 8000,
   mongoose = require('mongoose'),
-  Product = require('./api/models/Shop'), //created model loading here
+  //Product = require('./api/models/Shop'), //created model loading here
   Shop = require('./api/models/Shop'), //created model loading here
 
   bodyParser = require('body-parser');
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/inventory');
+mongoose.connect('mongodb://localhost/localize');
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
