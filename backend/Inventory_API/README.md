@@ -3,19 +3,19 @@
 ### Install & Run MongoDB
 Download [here](https://docs.mongodb.com/manual/installation/) & Run with
 
-```mongod```
+`mongod`
 
 
 
 ### Populate the MongoDB (create mock data)
 
-```npm run pop```
+`npm run pop`
 
 
 
 ### Run the NodeJS
 
-```npm run start```
+`npm run start`
 
 
 
