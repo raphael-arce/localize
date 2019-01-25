@@ -21,7 +21,7 @@ exports.findByKeywords = function(req, res) {
                 res.send(productErr);
 
             res.json(product);
-        });
+        }).collation( { locale: 'en', strength: 2 } );
     }
     //if there are no keywords, get all products & forward them to the requester
     else {
