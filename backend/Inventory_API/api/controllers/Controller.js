@@ -13,7 +13,7 @@ exports.findByKeywords = function(req, res) {
     //if there are keywords to look for, use them
     if(req.query.keywords) {
 
-        let array = JSON.parse(req.query.keywords);
+        let array = JSON.parse(req.query.keywords).map(v => new RegExp(v, "i"));
 
         //look for products that match the keywords & forward them to the requester
         Product.find({keywords : {$in: array}}, function(productErr, product) {
@@ -21,7 +21,7 @@ exports.findByKeywords = function(req, res) {
                 res.send(productErr);
 
             res.json(product);
-        }).collation( { locale: 'en', strength: 2 } );
+        })
     }
     //if there are no keywords, get all products & forward them to the requester
     else {
