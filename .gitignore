@@ -4,7 +4,6 @@ backend/bin
 #node modules
 backend/Inventory_API/node_modules
 backend/Localize_API/node_modules
-Frontend/node_modules
 
 #private testing
 backend/Inventory_API/test.js
@@ -15,7 +14,7 @@ backend/.idea
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+Frontend//node_modules
 /.pnp
 .pnp.js
 
@@ -23,7 +22,10 @@ backend/.idea
 /coverage
 
 # production
-/build
+Frontend//build
+
+#vscode
+.vscode
 
 # misc
 .DS_Store
