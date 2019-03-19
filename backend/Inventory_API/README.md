@@ -21,6 +21,18 @@ Download [here](https://docs.mongodb.com/manual/installation/) & Run with
 `npm run start`
 
 
+## Docker
+
+###build
+`docker build -t blade/blade-js .`
+###run
+`docker-compose up`
+###generate tar
+`docker save -o <path for generated tar file> <image name>`
+###load
+`docker load -i <path to tar file>`
+
+
 
 ### Queries
 
