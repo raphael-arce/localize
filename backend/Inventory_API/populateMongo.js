@@ -36,17 +36,35 @@ var products =  [{
     price: 'EUR 59,95',
     keywords: ['MUSTANG', 'Jeans', '36/32', '3158', '5178', '098'],
     quantity: 14
-}]
+}];
 
-console.log('trying to create shop info...')
-
-product.insertMany(products, function(err) {
-        if(err)
+let populate = () => {
+    console.log('creating mock product data..');
+    for (let i = 0; i < 5000; i++) {
+        products.push({
+            productName: 'Jeans',
+            productId: 4032045531245 + i,
+            price: 'EUR 59,95',
+            keywords: ['MUSTANG', 'Jeans', '36/32', '3158', '5178', '098'],
+            quantity: 14
+        })
+    }
+    console.log('data created successfully!');
+    console.log('trying to populate inventory with mock product data...');
+    product.insertMany(products, function (err) {
+        if (err) {
             console.log(err);
-        else
-            console.log("product info created successfully!")
-    process.exit();
-});
+        } else {
+            console.log("product saved successfully!")
+        }
+    });
+};
+
+populate();
+
+
+
+
 
 
 

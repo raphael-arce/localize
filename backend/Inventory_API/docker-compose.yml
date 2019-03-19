@@ -1,0 +1,17 @@
+version: "2"
+services:
+  inventory:
+    container_name: inventory
+    restart: always
+    image: inventory
+    ports:
+      - "8090:8090"
+    links:
+      - mongo
+  mongo:
+    container_name: mongoL
+    image: mongo
+    volumes:
+      - ./data/mongodb/db:/data/db
+    ports:
+      - "27017:27017"

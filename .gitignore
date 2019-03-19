@@ -2,14 +2,14 @@
 backend/bin
 
 #node modules
-backend/Inventory_API/node_modules
-backend/Localize_API/node_modules
+node_modules
+package_lock.json
 
 #private testing
 backend/Inventory_API/test.js
 
 #idea
-backend/.idea
+.idea
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
@@ -33,6 +33,7 @@ Frontend//build
 .env.development.local
 .env.test.local
 .env.production.local
+commands
 
 npm-debug.log*
 yarn-debug.log*
