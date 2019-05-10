@@ -40,7 +40,7 @@ var products =  [{
 
 let populate = () => {
     console.log('creating mock product data..');
-    for (let i = 0; i < 5000; i++) {
+    /*for (let i = 0; i < 5000; i++) {
         products.push({
             productName: 'Jeans',
             productId: 4032045531245 + i,
@@ -48,7 +48,7 @@ let populate = () => {
             keywords: ['MUSTANG', 'Jeans', '36/32', '3158', '5178', '098'],
             quantity: 14
         })
-    }
+    }*/
     console.log('data created successfully!');
     console.log('trying to populate inventory with mock product data...');
     product.insertMany(products, function (err) {

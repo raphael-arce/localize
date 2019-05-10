@@ -10,7 +10,7 @@ var shopInfo = {
     shopAddress: "Rigaer Str. 67, 10247 Berlin",
     phone: "+49 030 123456789",
     email: "info@123.de",
-    API: "http://localhost:3000"
+    API: "http://192.169.178.122:8090"
 }
 
 console.log('trying to create shop info...');
