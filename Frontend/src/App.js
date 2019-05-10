@@ -1,35 +1,35 @@
-import React, { Component } from 'react';
-//import logo from './logo.svg';
-import './App.css';
- 
-import Search from './containers/Search';
-import MapContainer from './containers/MapContainer';
-import Suggestions from './components/Suggestions';
-//import Map from './containers/Map';
+import React from 'react';
 
-class App extends Component {
-  
-  render() {
-    return (
-      <div className="main-container">
-          <div className="nav-container">
-            <nav className="nav">
-              <div className="title">Localize</div>
-            </nav>
-            <div className="search">
-              <Search/>
-            </div>
-          </div>
-          <div className="map">
-            <MapContainer/>
-          </div>
-          <div className="suggestions">
-            <Suggestions ref={(input) => {this.results = input }}/>
-          </div>
-          
-      </div>
+import './App.css';
+import Root from "./pages/Root";
+import SearchPage from "./pages/SearchPage";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+
+function App() {
+  return (
+      <>
+          <Router>
+              <Route path="/" exact component={RenderRoot}/>
+              <Route path="/search" component={RenderSearchPage}/>
+          </Router>
+      </>
     );
-  }
+}
+
+function RenderRoot() {
+    return (
+        <>
+            <Root/>
+        </>
+    )
+}
+
+function RenderSearchPage() {
+    return(
+        <>
+            <SearchPage/>
+        </>
+    )
 }
 
 export default App;

@@ -1,16 +1,17 @@
 {
-  "name": "localize",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@appbaseio/reactivemaps": "^2.0.1",
-    "@appbaseio/reactivesearch": "^3.0.0-alpha.9",
-    "axios": "^0.18.0",
-    "google-maps-react": "^2.0.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-google-maps": "^9.4.5",
-    "react-scripts": "2.1.1"
+    "bootstrap": "^4.3.1",
+    "leaflet": "^1.5.1",
+    "query-string": "^6.5.0",
+    "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
+    "react-dom": "^16.8.6",
+    "react-leaflet": "^2.2.1",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,10 +22,16 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

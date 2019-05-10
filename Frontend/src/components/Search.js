@@ -3,49 +3,65 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from "react-bootstrap/es/FormControl";
 import Button from "react-bootstrap/Button";
 
-//import Suggestions from '../components/Suggestions';
+import Suggestions from './Suggestions';
 
-const API_URL = 'http://localhost:3000/products'
+const API_URL = 'http://localhost:8000/localize'
 
 class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.handleInputChange = this.handleInputChange.bind(this)
-  }
 
-  getInfo = () => {
-    fetch(`${API_URL}?keywords=["${this.state.query}"]`)
-      .then(data => data.json())
-      .then( response => this.props.setState({ results: response }))
-  }
+    constructor(props) {
+        super(props);
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleKeyDown = this.handleKeyDown.bind(this)
+        this.search = this.search.bind(this)
+    }
 
-  handleInputChange = (e) => {
-    this.props.setState({
-      query: e.target.value
-    }, () => {
-      if (this.state.query && this.state.query.length > 1) {
-          this.getInfo()
-      }
-    })
-  }
+    search() {
+        let req = `${API_URL}?keywords=["${this.props.state.query}"]`
+        console.log(req)
+        fetch(req)
+            .then(response => response.json())
+            .then( response => {
+                this.props.setState("results", response, () => console.log(this.props.state.results))
+            })
+            .catch(error => console.log(error))
+    }
 
-  render() {
-    return (
-        <InputGroup className="mb-3">
-          <FormControl
-              placeholder="Recipient's username"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              placeholder="Search for ..."
-              onChange={this.handleInputChange}
-          />
-          <InputGroup.Append>
-            <Button variant="outline-secondary">Search</Button>
-          </InputGroup.Append>
-        </InputGroup>
-    )
-  }
+    handleInputChange(e) {
+      this.props.setState("query", e.target.value)
+    };
+
+    componentDidMount() {
+        if(this.props.state.results.length === 0 && typeof this.props.state.query === 'string' && this.props.state.query.length > 0 ) {
+            this.search()
+        }
+    }
+
+    handleKeyDown(e) {
+        if (e.key === 'Enter' && this.props.state.query) {
+            //alert("pressed enter with value: " + this.props.state.query)
+            this.search()
+        }
+    };
+
+    render() {
+        return (
+            <>
+                <InputGroup className="mb-3">
+                    <FormControl
+                        placeholder="Search for ..."
+                        value={this.props.state.query}
+                        onChange={this.handleInputChange}
+                        onKeyDown={this.handleKeyDown}
+                    />
+                    <InputGroup.Append>
+                        <Button variant="outline-secondary">Search</Button>
+                    </InputGroup.Append>
+                </InputGroup>
+                <Suggestions setState={this.props.setState} state={this.props.state}/>
+            </>
+      )
+    }
 }
-
 
 export default Search

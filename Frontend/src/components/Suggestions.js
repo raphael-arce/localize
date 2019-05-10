@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 
+class Suggestions extends Component {
 
-const Suggestions = (props) => {
-  const options = props.results.map(r => (
-    <li key={r.productId}>
-          {r.productName}
-    </li>
-  ))
-  return <ul>{options}</ul>
+    render () {
+        return <> </>
+    }
+
 }
-    
+
+
 export default Suggestions

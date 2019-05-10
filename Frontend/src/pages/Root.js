@@ -1,20 +1,28 @@
 import React, { Component } from 'react'
-import Search from "./Search";
+import Search from "../components/Search";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { withRouter } from "react-router-dom";
 
 
 class Root extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            query: '',
+            results: []
+        }
         this.setStateCB = this.setStateCB.bind(this)
     }
 
     setStateCB(name, value, cb = null) {
         this.setState({[name]: value}, () => {
             if(typeof cb == 'function') {
-                cb();
+                cb()
+            }
+            if(this.state.results.length > 0) {
+                this.props.history.push({pathname: '/search', search: '?q=' + this.state.query, state: this.state })
             }
         })
     }
@@ -44,4 +52,4 @@ class Root extends Component {
     }
 }
 
-export default Root
+export default withRouter(Root)
