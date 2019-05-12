@@ -29,6 +29,8 @@ class Products extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this)
+        console.log('results in constructor of products: ')
+        console.log(this.props.results)
     }
 
     handleChange(value, event) {
@@ -52,8 +54,8 @@ class Products extends Component {
                             value={this.state.value}
                             onChange={this.handleChange}
                         >
-                            <ToggleButton value={1}>Mosaique</ToggleButton>
-                            <ToggleButton value={2}>List</ToggleButton>
+                            <ToggleButton variant="outline-secondary" value={1}>Mosaique</ToggleButton>
+                            <ToggleButton variant="outline-secondary" value={2}>List</ToggleButton>
                         </ToggleButtonGroup>
                     </ButtonToolbar>
                     </Row>

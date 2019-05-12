@@ -1,18 +1,22 @@
 import React, {Component} from 'react'
 import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
 class ProductTile extends Component {
 
     render() {
-        return <>
-            <Card style={{width:'9rem'}}>
+        return <Col lg={4} sm={5}>
+            <Container className='pb-3' style={{height: '100%', width: '100%'}}>
+            <Card style={{height: '100%'}}>
                 <Card.Img variant="top" src="placeholder.png" />
-                <Card.Body>
-                    <Card.Title> {this.props.details.productName} </Card.Title>
-                    <Card.Subtitle> {this.props.details.price} </Card.Subtitle>
+                <Card.Body className='align-self-stretch'>
+                    <Card.Subtitle> {this.props.details.productName} </Card.Subtitle>
                 </Card.Body>
+                <Card.Footer> {this.props.details.price} </Card.Footer>
             </Card>
-        </>
+            </Container>
+        </Col>
     }
 }
 

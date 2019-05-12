@@ -80,10 +80,10 @@ class SearchPage extends Component {
                     <Col md={2} className='full-available-height'>
                         <RefineSearch/>
                     </Col>
-                    <Col md={5} className='full-available-height'>
+                    <Col md={6} className='full-available-height'>
                         <Products results={this.state.results}/>
                     </Col>
-                    <Col md={5} className='full-available-height'>
+                    <Col md={4} className='full-available-height'>
                         <MyMap results={this.state.results}/>
                     </Col>
             </Row>
