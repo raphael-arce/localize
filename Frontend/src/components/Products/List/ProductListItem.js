@@ -13,7 +13,7 @@ class ProductListItem extends Component {
                     <Row>
                         <Col md={'auto'} className='align-self-center'>
                             <Row className='justify-content-start'>
-                                <img width={64} height={64} src={"placeholder.png"} alt="Placeholder"/>
+                                <img width={64} height={64} src={this.props.details.imgUrl} alt="Placeholder"/>
                             </Row>
                         </Col>
                         <Col md={'auto'} className='align-self-center'>

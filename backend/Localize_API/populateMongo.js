@@ -6,11 +6,12 @@ mongoose.connect('mongodb://localhost/localize');
 
 
 var shopInfo = {
-    shopName: "123 hier gibts alles",
-    shopAddress: "Rigaer Str. 67, 10247 Berlin",
-    phone: "+49 030 123456789",
-    email: "info@123.de",
-    API: "http://192.169.178.122:8090"
+    shopName: "456 hier gibts noch mehr",
+    shopAddress: "Schreinerstr. 43, 10247 Berlin",
+    shopGeo: [52.516952, 13.468145],
+    phone: "+49 030 987654321",
+    email: "info@456.de",
+    API: "http://localhost:8091"
 }
 
 console.log('trying to create shop info...');

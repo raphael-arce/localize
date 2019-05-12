@@ -4,12 +4,10 @@ class ProductList extends Component {
 
     render() {
         return <>
-            {this.props.results.map(shop => {
-                return shop.inventory.map(item => {
+            {this.props.products.map(item => {
                     return <ProductListItem key={item.productId} details={item}/>
-
                 })
-            })}
+            }
         </>
     }
 }

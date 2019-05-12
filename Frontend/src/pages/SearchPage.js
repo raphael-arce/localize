@@ -40,8 +40,7 @@ class SearchPage extends Component {
 
     setStateCB(name, value, cb = null) {
         this.setState({[name]: value}, () => {
-            if(name === 'query') {
-                //TODO check if this might cause issues, when typing in the searchbar, should the URL be updated at the same time?
+            if(name === 'results') {
                 this.props.history.push({pathname: '/search', search: '?q=' + this.state.query, state: this.state })
             }
             if(typeof cb == 'function') {

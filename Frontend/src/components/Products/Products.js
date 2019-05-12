@@ -25,18 +25,48 @@ class Products extends Component {
 
         this.state = {
             value: 1,
-            pages: items
+            pages: items,
+            products: []
         }
 
         this.handleChange = this.handleChange.bind(this)
-        console.log('results in constructor of products: ')
-        console.log(this.props.results)
+        //this.componentDidMount = this.componentDidMount.bind(this)
+        this.componentDidUpdate = this.componentDidUpdate.bind(this)
+        this.getAllProducts = this.getAllProducts.bind(this)
     }
 
     handleChange(value, event) {
         this.setState({ value });
     }
 
+    componentDidMount() {
+        this.getAllProducts()
+    }
+
+
+    componentDidUpdate(prevProps) {
+        if(this.props.results !== prevProps.results) {
+            this.getAllProducts()
+        }
+    }
+
+    getAllProducts() {
+        let products = []
+        this.props.results.forEach(shop => {
+            shop.inventory.forEach(item => {
+                let alreadyExisting = false
+                products.forEach(product => {
+                    if(product.productId === item.productId) {
+                        alreadyExisting = true
+                    }
+                })
+                if(!alreadyExisting) {
+                    products.push(item)
+                }
+            })
+        })
+        this.setState({products: products})
+    }
 
     render () {
         return <div className='d-flex flex-column' style={{height: '100%'}}>
@@ -63,7 +93,7 @@ class Products extends Component {
             </Row>
             <Row>
                 <Col>
-                {this.state.value===1 ? <ProductMosaique results={this.props.results}/> : <ProductList results={this.props.results}/>}
+                    {this.state.value===1 ? <ProductMosaique products={this.state.products}/> : <ProductList products={this.state.products}/>}
                 </Col>
             </Row>
             <Row className='flex-grow-1 justify-content-center align-items-end'>

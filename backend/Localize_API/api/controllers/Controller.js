@@ -54,12 +54,16 @@ exports.find = function(req, res) {
                 promises.push(p);
             }
 
-            Promise.all(promises).then((values) => {
-                console.log(values);
-                res.json(results);
-            }).catch(function(err) {
-                res.send(err);
-            })
+            Promise.all(promises)
+                .catch(function(err) {
+                    console.log('A promise failed to resolve:', err)
+                    return promises
+                })
+                .then((values) => {
+                    console.log(values);
+                    res.json(results);
+                })
+
         }
 
         if(req.query.id) {

@@ -18,11 +18,10 @@ class Search extends Component {
 
     search() {
         let req = `${API_URL}?keywords=["${this.props.state.query}"]`
-        console.log(req)
         fetch(req)
             .then(response => response.json())
             .then( response => {
-                this.props.setState("results", response, () => console.log(this.props.state.results))
+                this.props.setState("results", response, () => {})
             })
             .catch(error => console.log(error))
     }

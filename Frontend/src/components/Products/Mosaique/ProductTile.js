@@ -9,7 +9,7 @@ class ProductTile extends Component {
         return <Col lg={4} sm={5}>
             <Container className='pb-3' style={{height: '100%', width: '100%'}}>
             <Card style={{height: '100%'}}>
-                <Card.Img variant="top" src="placeholder.png" />
+                <Card.Img variant="top" src={this.props.details.imgUrl} />
                 <Card.Body className='align-self-stretch'>
                     <Card.Subtitle> {this.props.details.productName} </Card.Subtitle>
                 </Card.Body>

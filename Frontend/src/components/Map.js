@@ -6,28 +6,50 @@ class MyMap extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            lat: 52.5159731,
-            lng: 13.4679506,
-            zoom: 13,
-        }
 
+        this.state = {
+            center: [52.5065133,13.1445598],
+            zoom: 13
+        }
+        this.componentDidMount = this.componentDidMount.bind(this)
+        this.componentDidUpdate = this.componentDidUpdate.bind(this)
+        this.updateCenter = this.updateCenter.bind(this)
+    }
+
+    componentDidMount() {
+        this.updateCenter()
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.results !== prevProps.results) {
+            this.updateCenter()
+        }
+    }
+
+    updateCenter() {
+        if(typeof this.props.results[0] !== 'undefined') {
+            this.setState({center: this.props.results[0].shopGeo})
+        }
     }
 
     render() {
-        const position = [this.state.lat, this.state.lng]
         return (
             <>
-                <Map style={{height:"100%"}} center={position} zoom={this.state.zoom}>
+                <Map style={{height:"100%"}} center={this.state.center} zoom={this.state.zoom}>
                     <TileLayer
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <Marker position={position}>
-                        <Popup>
-                            A pretty CSS3 popup. <br /> Easily customizable.
-                        </Popup>
-                    </Marker>
+                    {this.props.results.map(shop => {
+                        return   <Marker key={shop._id} position={shop.shopGeo}>
+                            <Popup>
+                                {shop.shopName} <br/>
+                                {shop.phone} <br/>
+                                {shop.email} <br/>
+                                {shop.shopAddress}
+                            </Popup>
+                        </Marker>
+                    })}
                 </Map>
             </>
         )
