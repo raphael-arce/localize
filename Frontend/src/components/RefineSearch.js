@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 class RefineSearch extends Component {
 
     render () {
-        return <> REFINE SEARCH </>
+        return <div style={{background: '#aeabb6', height: '100%'}}>
+            REFINE SEARCH
+        </div>
     }
 
 }

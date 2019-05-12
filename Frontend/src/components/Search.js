@@ -38,10 +38,12 @@ class Search extends Component {
     }
 
     handleKeyDown(e) {
+        //alert("key pressed: " + e.key)
         if (e.key === 'Enter' && this.props.state.query) {
             //alert("pressed enter with value: " + this.props.state.query)
             this.search()
         }
+
     };
 
     render() {
@@ -55,7 +57,7 @@ class Search extends Component {
                         onKeyDown={this.handleKeyDown}
                     />
                     <InputGroup.Append>
-                        <Button variant="outline-secondary">Search</Button>
+                        <Button variant="outline-secondary" onClick={() => this.search()}>Search</Button>
                     </InputGroup.Append>
                 </InputGroup>
                 <Suggestions setState={this.props.setState} state={this.props.state}/>
