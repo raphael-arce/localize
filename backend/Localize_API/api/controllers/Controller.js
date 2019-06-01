@@ -19,8 +19,8 @@ exports.find = function(req, res) {
     if(req.query.location) {
         mongo_search_parameter = {
             $or: [
-                {shopCity: req.query.location},
-                {shopPostcode: req.query.location}
+                {shopCity: new RegExp(req.query.location, "i")},
+                {shopPostcode: new RegExp(req.query.location, "i")}
             ]
         }
     }
