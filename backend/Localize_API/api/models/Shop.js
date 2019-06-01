@@ -6,6 +6,8 @@ var Schema = mongoose.Schema;
 var ShopSchema = new Schema({
     shopName: String,
     shopAddress: String,
+    shopPostcode: String,
+    shopCity: String,
     shopGeo: [],
     phone: String,
     email: String,

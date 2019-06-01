@@ -13,8 +13,19 @@ const request = require('request');
  * @param response
  */
 exports.find = function(req, res) {
+
+    let mongo_search_parameter = {}
+
+    if(req.query.location) {
+        mongo_search_parameter = {
+            $or: [
+                {shopCity: req.query.location},
+                {shopPostcode: req.query.location}
+            ]
+        }
+    }
     //begin with finding the shopInfo
-    Shop.find({},function(shopErr, shopInfos){
+    Shop.find(mongo_search_parameter,function(shopErr, shopInfos){
 
         let results = [];
         let promises = [];
@@ -37,20 +48,25 @@ exports.find = function(req, res) {
                 //console.log(url);
 
                 let p = new Promise((resolve,reject) => {
-                    console.log("hi!");
+                    //console.log("hi!");
                     console.log(url);
 
                     request.get(url, (err, apiResponse, body) => {
                         if(err)
                             reject(err.message);
 
-                        if(body)
-                            shopInfo.inventory = JSON.parse(body);
-                        results.push(shopInfo);
+                        if(typeof body === 'string') {
+                            let bodyObject = JSON.parse(body)
+                            console.log(bodyObject)
+                            if(bodyObject.length > 0) {
+                                shopInfo.inventory = bodyObject;
+                                results.push(shopInfo);
+                            }
+                        }
                         resolve();
                     });
 
-                });
+                }).catch(err => console.log(err));
                 promises.push(p);
             }
 
@@ -60,7 +76,7 @@ exports.find = function(req, res) {
                     return promises
                 })
                 .then((values) => {
-                    console.log(values);
+                    //console.log('is this undefined?',  results);
                     res.json(results);
                 })
 
