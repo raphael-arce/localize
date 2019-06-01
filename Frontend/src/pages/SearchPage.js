@@ -21,22 +21,23 @@ class SearchPage extends Component {
             myState.location = ''
         }
         else {
-            const query = queryString.parse(this.props.location.search) //if you came from nowhere but added the query in the url
+            const query = queryString.parse(this.props.location.search) // if you came from nowhere but added the query in the url
             if(typeof query.q !== 'undefined') {
                 myState = {
                     query: query.q,
                     results: []
                 }
-                if(typeof query.location !== 'undefined') {
-                    myState.location = query.location
-                }
-            }
-            else { //if you came from nowhere
+
+            } else { // if you came from nowhere with no query in the url
                 myState = {
                     query: '',
-                    location: '',
                     results: []
                 }
+            }
+            if(typeof query.location !== 'undefined') { // if you came from nowhere but added the location in the url
+                myState.location = query.location
+            } else { // if you came from nowhere with no query in the url
+                myState.location = ''
             }
         }
         this.state = myState
@@ -46,9 +47,16 @@ class SearchPage extends Component {
     setStateCB(name, value, cb = null) {
         this.setState({[name]: value}, () => {
             if(name === 'results') {
-                let query = `?q=${this.state.query}`
-                if(this.state.location)
-                    query += `&location=${this.state.location}`
+                let query = '?'
+                if(this.state.query.length > 0) {
+                    query += `q=${this.state.query}`
+                }
+
+                if(this.state.location.length > 0) {
+                    if(this.state.query.length > 0)
+                        query += '&'
+                    query += `location=${this.state.location}`
+                }
                 this.props.history.push({pathname: '/search', search: query , state: this.state })
             }
             if(typeof cb == 'function') {

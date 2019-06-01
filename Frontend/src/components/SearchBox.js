@@ -21,7 +21,15 @@ class SearchBox extends Component {
     }
 
     search() {
-        let req = `${API_URL}?keywords=["${this.props.state.query}"]` //TODO split query in array when there are spaces
+        let req = `${API_URL}?`
+        let query = this.props.state.query
+        if(typeof query === "string" && query.length > 0 && query.includes(' ')) {
+            query = query.split(' ')
+            req += `keywords=[${query}]`
+        } else {
+            req += `keywords=["${query}"]`
+        }
+
         if(this.props.state.location) {
             req += `&location=${this.props.state.location}`
         }
@@ -39,14 +47,15 @@ class SearchBox extends Component {
     };
 
     componentDidMount() {
-        if(this.props.state.results.length === 0 && typeof this.props.state.query === 'string' && this.props.state.query.length > 0 ) {
+        let shouldSearch = (this.props.state.results.length === 0 && typeof this.props.state.query === 'string' && this.props.state.query.length > 0) || (this.props.state.results.length === 0 && typeof  this.props.state.location === 'string' && this.props.state.location.length > 0)
+        if(shouldSearch) {
             this.search()
         }
     }
 
     handleKeyDown(e) {
         //alert("key pressed: " + e.key)
-        if (e.key === 'Enter' && this.props.state.query) {
+        if (e.key === 'Enter' && (this.props.state.query || this.props.state.location)) {
             //alert("pressed enter with value: " + this.props.state.query)
             this.search()
         }
