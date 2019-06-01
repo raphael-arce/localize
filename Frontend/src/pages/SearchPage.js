@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {withRouter} from "react-router-dom";
-import Search from "../components/Search";
+import SearchBox from "../components/SearchBox";
 import queryString from 'query-string'
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -18,18 +18,23 @@ class SearchPage extends Component {
         let myState = {}
         if(typeof this.props.location.state !== 'undefined') { //if you came from root, location.state will be filled
             myState = this.props.location.state;
+            myState.location = ''
         }
         else {
-            const query = queryString.parse(this.props.location.search).q //if you came from nowhere but added the query in the url
-            if(typeof query !== 'undefined') {
+            const query = queryString.parse(this.props.location.search) //if you came from nowhere but added the query in the url
+            if(typeof query.q !== 'undefined') {
                 myState = {
-                    query: query,
+                    query: query.q,
                     results: []
+                }
+                if(typeof query.location !== 'undefined') {
+                    myState.location = query.location
                 }
             }
             else { //if you came from nowhere
                 myState = {
                     query: '',
+                    location: '',
                     results: []
                 }
             }
@@ -41,7 +46,10 @@ class SearchPage extends Component {
     setStateCB(name, value, cb = null) {
         this.setState({[name]: value}, () => {
             if(name === 'results') {
-                this.props.history.push({pathname: '/search', search: '?q=' + this.state.query, state: this.state })
+                let query = `?q=${this.state.query}`
+                if(this.state.location)
+                    query += `&location=${this.state.location}`
+                this.props.history.push({pathname: '/search', search: query , state: this.state })
             }
             if(typeof cb == 'function') {
                 cb();
@@ -49,10 +57,12 @@ class SearchPage extends Component {
         })
     }
 
+
+
     render() {
         return <div className='full-available-height'>
-            <Row>
-                <Col md={{span: "auto", offset: 3}}>
+            <Row className='align-items-center justify-content-center'>
+                <Col md='auto'>
                     <img
                         width={148}
                         height={64}
@@ -60,9 +70,10 @@ class SearchPage extends Component {
                         alt="Placeholder"
                     />
                 </Col>
-                <Col md={6} style={{marginTop: "2%"}}>
-                    <Search setState={this.setStateCB} state={this.state}/>
+                <Col md={8}>
+                    <SearchBox setState={this.setStateCB} state={this.state}/>
                 </Col>
+
             </Row>
             <Row>
                 <Col>

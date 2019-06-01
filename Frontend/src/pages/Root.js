@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Search from "../components/Search";
+import SearchBox from "../components/SearchBox";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -43,7 +43,7 @@ class Root extends Component {
                     </Row>
                     <Row style={{marginTop: "2%"}}>
                         <Col align={"center"}>
-                            <Search setState={this.setStateCB} state={this.state}/>
+                            <SearchBox setState={this.setStateCB} state={this.state}/>
                         </Col>
                     </Row>
                 </Container>
