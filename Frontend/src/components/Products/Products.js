@@ -71,7 +71,7 @@ class Products extends Component {
     render () {
         return <div className='d-flex flex-column' style={{height: '100%'}}>
 
-            <Row className='align-items-baseline'>
+            <Row className='align-items-start'>
                 <Col>
                     SEARCH RESULTS:
                 </Col>

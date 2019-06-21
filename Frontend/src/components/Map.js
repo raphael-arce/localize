@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, Popup } from 'react-leaflet'
+
+
 
 
 class MyMap extends Component {
@@ -41,14 +43,22 @@ class MyMap extends Component {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     {this.props.results.map(shop => {
-                        return   <Marker key={shop._id} position={shop.shopGeo}>
-                            <Popup>
-                                {shop.shopName} <br/>
-                                {shop.phone} <br/>
-                                {shop.email} <br/>
-                                {shop.shopAddress}
+                        let lowestPrice = Number.MAX_VALUE
+                        shop.inventory.forEach(product => {
+                            let price = product.price.replace('EUR ','').replace(',','.')
+                            if(price < lowestPrice) {
+                                lowestPrice = price
+                            }
+                        })
+                        return <Popup key={shop._id}
+                                      position={shop.shopGeo}
+                                      closeButton={false}
+                                      autoClose={false}
+                                      closeOnEscapeKey={false}
+                                      closeOnClick={false}
+                                >
+                            {lowestPrice.toString().replace('.', ',') + '€'}
                             </Popup>
-                        </Marker>
                     })}
                 </Map>
             </>
