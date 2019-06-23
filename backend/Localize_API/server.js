@@ -5,6 +5,7 @@ var express = require('express'),
   //Product = require('./api/models/Shop'), //created model loading here
   Shop = require('./api/models/Shop'), //created model loading here
   cors = require('cors'),
+  helmet = require('helmet'),
   bodyParser = require('body-parser');
 
 // mongoose instance connection url connection
@@ -20,6 +21,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
+app.use(helmet());
 
 var routes = require('./api/routes/Routes'); //importing route
 routes(app); //register the route

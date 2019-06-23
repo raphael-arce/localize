@@ -1,6 +1,7 @@
 var express = require('express'),
   // Import the library:
   cors = require('cors'),
+  helmet = require('helmet'),
   app = express(),
   port = process.env.PORT || 8091,
   mongoose = require('mongoose'),
@@ -17,6 +18,7 @@ mongoose.connect('mongodb://localhost/inventory');
 
 // Then use it before your routes are set up:
 app.use(cors());
+app.use(helmet())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
