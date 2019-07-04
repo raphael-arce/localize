@@ -120,7 +120,7 @@ exports.modifyProduct = function(req, res) {
     //console.log(fields)
     Product.updateOne({productId: req.params.productId}, { $set: fields } , (err, result) => {
         if(err)
-            res.status(401).send(JSON.stringify({error: err.message}));
+            res.status(401).json({error: err.message});
         else if(result.n === 0) {
             res.status(401).send('{"error":"The product you want to modify was not found."}')
         }

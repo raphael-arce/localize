@@ -3,11 +3,6 @@ module.exports = function(app) {
   var inventory = require('../controllers/InventoryController');
   var account = require('../controllers/AccountController');
 
-//Routes for information
-
- // app.route('/products')
- //     .get(inventory.listAllProducts);
-
   app.route('/login')
       .post(account.login);
   app.route('/register')
