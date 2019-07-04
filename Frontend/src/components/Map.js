@@ -57,7 +57,7 @@ class MyMap extends Component {
                                       closeOnEscapeKey={false}
                                       closeOnClick={false}
                                 >
-                            {lowestPrice.toString().replace('.', ',') + '€'}
+                            {'EUR ' + lowestPrice.toString().replace('.', ',')}
                             </Popup>
                     })}
                 </Map>
