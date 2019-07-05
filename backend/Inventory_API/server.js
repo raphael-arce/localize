@@ -16,8 +16,12 @@ var express = require('express'),
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/inventory');
 
-// Then use it before your routes are set up:
-app.use(cors());
+const corsOptions = {
+    origin:'http://localhost:3000',
+    credentials: true
+}
+
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(session({
     secret: 'se cr et 1 3 ###',

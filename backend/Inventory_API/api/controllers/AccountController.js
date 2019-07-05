@@ -55,6 +55,8 @@ exports.logout = function(req, res) {
                 res.send('{"message": "success"}')
             }
         });
+    } else {
+        res.send('{"error":"not logged in"}')
     }
 };
 
