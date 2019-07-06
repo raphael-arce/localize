@@ -33,7 +33,7 @@ export default class AccessPanel extends Component {
         return (
             <Container className="mt-5">
                 <Row className="justify-content-md-center">
-                    <Col xs={5}>
+                    <Col xs={12} md={8}  lg={6}>
                         <Tab.Container id="left-tabs-example"  defaultActiveKey="login">
                             <Card>
                                 <Card.Header>
