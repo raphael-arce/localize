@@ -12,7 +12,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from 'react-bootstrap/Button';
 import AccessPanel from "./pages/AccessPanel";
 import NotFound from "./components/NotFound";
-import Home from "./pages/Home"
+import Home from "./pages/Home/Home"
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -59,7 +59,7 @@ function App() {
                       <Redirect to="/login"/>
                   )
               )}/>
-              <NavigationBar/>
+              {/*<NavigationBar/>*/}
               <Switch>
                   <Route path="/login" component={AccessPanel}/>
                   <PrivateRoute path='/home' component={Home}/>
