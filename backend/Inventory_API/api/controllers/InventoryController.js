@@ -16,24 +16,24 @@ exports.findByKeywords = function(req, res) {
         let array = JSON.parse(req.query.keywords).map(v => new RegExp(v, "i"));
 
         //look for products that match the keywords & forward them to the requester
-        Product.find({keywords : {$in: array}}, (productErr, product) => {
+        Product.find({keywords : {$in: array}}, (productErr, products) => {
             if (productErr)
                 res.status(500).json({error: productErr.message});
-            else if(!product)
+            else if(!products)
                 res.send('{"message": No result."}');
             else
-                res.json(product);
+                res.json({message: "success", result: products});
         })
     }
     //if there are no keywords, get all products & forward them to the requester
     else {
-        Product.find({}, (err, product) => {
+        Product.find({}, (err, products) => {
             if (err)
                 res.status(500).json({error: err.message});
-            else if (!product)
+            else if (!products)
                 res.send('{"message": "No result."}');
             else
-                res.json(product);
+                res.json({message: "success", result: products});
         });
     }
 };
@@ -51,7 +51,7 @@ exports.findById = function(req, res) {
         else if (!product)
             res.send('{"message": "No result."}');
         else
-            res.json(product);
+            res.json({message: "success", result:product});
     });
 };
 
@@ -78,10 +78,12 @@ exports.createProduct = function(req, res) {
             else {
                 //If not, create a new product
                 let productData = new Product();
-                productData.keywords = JSON.parse(req.body.keywords);
+                productData.keywords = req.body.keywords.split(',');
                 productData.productName = req.body.productName;
                 productData.productId = req.body.productId;
                 productData.price = req.body.price;
+                productData.description = req.body.description;
+                productData.imgUrl = req.body.imgUrl;
                 productData.quantity = req.body.quantity;
 
                 Product.create(productData, function (error, product) {
@@ -116,9 +118,8 @@ exports.createProduct = function(req, res) {
 exports.modifyProduct = function(req, res) {
     //console.log(req.params)
     //console.log(req.body)
-    let fields = JSON.parse(req.body.fields);
     //console.log(fields)
-    Product.updateOne({productId: req.params.productId}, { $set: fields } , (err, result) => {
+    Product.updateOne({productId: req.params.productId}, { $set: req.body } , (err, result) => {
         if(err)
             res.status(401).json({error: err.message});
         else if(result.n === 0) {
@@ -126,7 +127,7 @@ exports.modifyProduct = function(req, res) {
         }
         else {
             //console.log(result)
-            res.send('{"message":"success"')
+            res.send('{"message":"success"}')
         }
     })
 };
