@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 
-export default class Dashboard extends Component {
+export default class Orders extends Component {
 
 
 
@@ -9,7 +9,7 @@ export default class Dashboard extends Component {
         return (
             <>
                 <h3>
-                    Dashboard
+                    Orders
                 </h3>
 
                 coming soon...

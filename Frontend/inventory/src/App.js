@@ -4,12 +4,9 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
-  withRouter
+  Redirect
 } from 'react-router-dom';
 import {Auth} from "./constants/Authentication"
-import Navbar from "react-bootstrap/Navbar";
-import Button from 'react-bootstrap/Button';
 import AccessPanel from "./pages/AccessPanel";
 import NotFound from "./components/NotFound";
 import Home from "./pages/Home/Home"
@@ -26,6 +23,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 
+/*
 const NavigationBar = withRouter(({ history }) => (
     Auth.isAuthenticated ? (
         <div>
@@ -38,13 +36,14 @@ const NavigationBar = withRouter(({ history }) => (
               }) } }>Log out</Button>
             </Navbar.Collapse>
           </Navbar>
-          {/*<SideNavigation/>*/}
+          {<SideNavigation/>}
 
         </div>
     ) : (
         <div/>
     )
 ));
+*/
 
 
 function App() {
