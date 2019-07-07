@@ -32,8 +32,8 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 10000;
+    z-index: 1000;
     height: 100vh;
     padding-left: 0;
-    border-right: 1px solid #c8c8c8;
+    border-right: 1px solid rgba(128, 128, 128, 0.59);
 }

@@ -16,7 +16,7 @@ export default class Home extends Component{
         super(props)
         this.state = {
             redirect: false,
-            selectedKey: 'Dashboard'
+            selectedKey: 'Products'
         }
         this.handleSelect = this.handleSelect.bind(this)
     }
@@ -75,7 +75,7 @@ export default class Home extends Component{
                     <Row>
                         <Col sm='auto'>
                             <Navbar variant='light' className='sideNav'>
-                                <Nav defaultActiveKey='Dashboard' className='flex-column align-self-start' onSelect={k => this.handleSelect(k)}>
+                                <Nav defaultActiveKey='Products' className='flex-column align-self-start' onSelect={k => this.handleSelect(k)}>
                                     <Nav.Link eventKey='Dashboard'>
                                         <i className='fa fa-home fa-fw'/> &nbsp; Dashboard
                                     </Nav.Link>
@@ -95,7 +95,9 @@ export default class Home extends Component{
                             </Navbar>
                         </Col>
                         <Col>
-                            {this.renderSelectedKey()}
+                            <div className='pt-3'>
+                                {this.renderSelectedKey()}
+                            </div>
                         </Col>
                     </Row>
                 </Container>
