@@ -42,7 +42,6 @@ AccountSchema.pre('save', function (next) {
         if (err) {
             return next(err);
         }
-        console.log('Password hash: ' + hash);
         account.password = hash;
         next();
     })
