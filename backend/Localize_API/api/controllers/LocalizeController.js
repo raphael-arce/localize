@@ -58,8 +58,8 @@ exports.find = function(req, res) {
                         if(typeof body === 'string') {
                             let bodyObject = JSON.parse(body)
                             console.log(bodyObject)
-                            if(bodyObject.length > 0) {
-                                shopInfo.inventory = bodyObject;
+                            if(bodyObject.message === 'success' && bodyObject.result.length > 0) {
+                                shopInfo.inventory = bodyObject.result;
                                 results.push(shopInfo);
                             }
                         }
